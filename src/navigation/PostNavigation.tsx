@@ -2,6 +2,8 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 //@ts-ignore
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen";
 import PostScreen from "../screens/PostScreen";
 
 
@@ -13,7 +15,7 @@ function PostNavigation() {
 		<Tab.Navigator style={ { backgroundColor: "red" } }>
 			<Tab.Screen
 				name="Home"
-				component={PostScreen}
+				component={HomeScreen}
 				options={{
 					// tabBarLabel: '',
 					tabBarIcon: ({ color }) => (
@@ -24,7 +26,6 @@ function PostNavigation() {
 			<Tab.Screen
 				name="New Post"
 				component={PostScreen}
-				labeled={false}
 				options={{
 					// tabBarLabel: '',
 					tabBarIcon: ({ color }) => (
@@ -35,7 +36,7 @@ function PostNavigation() {
 				/>
 			<Tab.Screen
 				name="Profile"
-				component={PostScreen}
+				component={ProfileScreen}
 				options={{
 					// tabBarLabel: '',
 					tabBarIcon: ({ color }) => (

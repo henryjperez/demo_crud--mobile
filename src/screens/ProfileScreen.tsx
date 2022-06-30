@@ -5,7 +5,7 @@ export default function PostScreen() {
 	return(
 		<View>
 			<Text>
-				New Post
+				Baily
 			</Text>
 		</View>
 	);
