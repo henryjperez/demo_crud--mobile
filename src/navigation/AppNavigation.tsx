@@ -15,8 +15,10 @@ const AppNavigation = () => {
 		try {
 			let _isSignIn = AsyncStorage.getItem('isSignIn');
 			let _darkMode = AsyncStorage.getItem('darkMode');
+			let _author_id = AsyncStorage.getItem('author_id');
+			let _name = AsyncStorage.getItem('name');
 
-			let [ value, darkModer ] = await Promise.all([_isSignIn, _darkMode]);
+			let [ value, darkModer, author_id, name ] = await Promise.all([_isSignIn, _darkMode, _author_id, _name]);
 			value = value ? await JSON.parse(value) : null;
 			darkModer = darkModer ? await JSON.parse(darkModer) : null;
 
@@ -25,6 +27,12 @@ const AppNavigation = () => {
 			}
 			if (darkModer) {
 				dispatch({ type: "darkmode" });
+			}
+			if (name) {
+				dispatch({ type: "name", payload: { name } });
+			}
+			if (author_id) {
+				dispatch({ type: "author_id", payload: { author_id } });
 			}
 			console.log(value, darkModer, "perro");
 		} catch (e) {
@@ -35,10 +43,11 @@ const AppNavigation = () => {
 
 	async function just4Debug() {
 		try {
+			
 			const keys = await AsyncStorage.getAllKeys();
 			const result = await AsyncStorage.multiGet(keys);
 
-			console.log(keys, result);
+			console.log(keys, result, "is logged", logged);
 			
 
 			// @ts-ignore
@@ -62,14 +71,14 @@ const AppNavigation = () => {
 
 
 	if (logged) {
-		// return <PostNavigation />
 		// return <AuthNavigation />
+		return <PostNavigation />
 	}
 	if (!logged) {
 		// return <AuthNavigation />
+		return <PostNavigation />
 	}
-	return <PostNavigation />
-	return <AuthNavigation />
+	// return <AuthNavigation />
 };
 
 export default AppNavigation;

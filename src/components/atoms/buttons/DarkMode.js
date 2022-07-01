@@ -4,14 +4,12 @@ import useColors from "../../../hooks/useColors";
 import context from "../../../context";
 import Buttons from "./index";
 import Icon from "react-native-vector-icons/FontAwesome5";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DarkMode = (props) => {
 	const colors = useColors();
 	const { dispatch, darkMode } = useContext(context);
 
 	function handleDarkMode() {
-		// AsyncStorage.setItem('@darkMode', JSON.stringify(isSignIn));
 		dispatch({ type: "darkmode" });
 	}
 

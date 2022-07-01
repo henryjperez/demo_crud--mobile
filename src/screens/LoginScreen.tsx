@@ -9,6 +9,7 @@ import DarkMode from "../components/atoms/buttons/DarkMode";
 import context from "../context";
 import useFetchAuth from "../hooks/useFetchAuth";
 import useColors from "../hooks/useColors";
+import { sRoutes } from "../utils/constants";
 
 const LoginScreen = (props: any) => {
 	const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const LoginScreen = (props: any) => {
 	const fetcher = useFetchAuth();
 
 	function handleSubmit() {
-		fetcher("/fake-get", { email, password });
+		fetcher(sRoutes.login, { email, password });
 	}
 
 	return (

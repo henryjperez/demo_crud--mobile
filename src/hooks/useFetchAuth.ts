@@ -11,6 +11,8 @@ interface Content {
 	avatar?: string | undefined;
 	password?: string | undefined;
 	author_id?: string | undefined;
+	text_content?: string | undefined;
+	author_name?: string | undefined;
 }
 
 function useFetchAuth() {
@@ -59,18 +61,20 @@ function useFetchAuth() {
 					break;
 				
 				case sRoutes.create_post:
-					if (value.login) {
-						dispatch({ type: "login", payload: { name, author_id: value.author_id } })
+					if (value.created) {
+						// dispatch({ type: "login", payload: { name, author_id: value.author_id } });
+						Alert.alert("El post se creo con éxito.");
 					} else {
-						Alert.alert("No se pudo encontrar el usuario.");
+						Alert.alert("Hubo un problema al crear el usuario, por favor inténtelo más tarde.");
 					}
 					break;
 				
 				case sRoutes.get_posts:
-					if (value.login) {
-						dispatch({ type: "login", payload: { name, author_id: value.author_id } })
+					console.log(route, value, value.response);
+					if (value.found) {
+						dispatch({ type: "post-got", payload: { posts: value.response } })
 					} else {
-						Alert.alert("No se pudo encontrar el usuario.");
+						Alert.alert("Tuvimos un problema encontrando los Post, por favor inténtelo más tarde.");
 					}
 					break;
 			
