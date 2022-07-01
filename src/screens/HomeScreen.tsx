@@ -61,11 +61,11 @@ export default function HomeScreen() {
 					//@ts-ignore
 					keyExtractor={item => item._id}
 				/>
-				
+				<Button onPress={handlePost} style={{ width: 50, height: 50, borderRadius: 20, alignSelf: "center" }}>
+					<MaterialCommunityIcons name="reload" color={"white"} size={26} />
+				</Button>
 			</View>
-			<Button onPress={handlePost} style={{ width: 50, height: 50, borderRadius: 20, alignSelf: "center" }}>
-				<MaterialCommunityIcons name="reload" color={"white"} size={26} />
-			</Button>
+
 			{/* </ScrollView> */}
 		</View>
 	);
