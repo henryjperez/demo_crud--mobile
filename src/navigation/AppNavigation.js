@@ -5,6 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from "react-native";
 import context from "../context";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+
+const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
 	const [logged, setLogged] = useState(false);
@@ -19,12 +23,12 @@ const AppNavigation = () => {
 			let _name = AsyncStorage.getItem('name');
 
 			let [ value, darkModer, author_id, name ] = await Promise.all([_isSignIn, _darkMode, _author_id, _name]);
-			value = value ? await JSON.parse(value) : null;
-			darkModer = darkModer ? await JSON.parse(darkModer) : null;
 
-			if (value !== null) {
-				setLogged(true);
-			}
+			console.log("Async Data On Load: value, darkModer, id, name =>", value, darkModer, author_id, name,);
+
+			setLogged(!!value);
+
+
 			if (darkModer) {
 				dispatch({ type: "darkmode" });
 			}
@@ -34,51 +38,57 @@ const AppNavigation = () => {
 			if (author_id) {
 				dispatch({ type: "author_id", payload: { author_id } });
 			}
-			console.log(value, darkModer, "perro");
+
+			if (!!value) {
+				dispatch({ type: "login", payload: { name: name || "", author_id: author_id || "", darkMode: darkModer, isSignIn: true } });
+			}
 		} catch (e) {
 			console.error(e);
 			Alert.alert("Inténtelo más tarde");
 		}
 	}
 
-	async function just4Debug() {
-		try {
-			
-			const keys = await AsyncStorage.getAllKeys();
-			const result = await AsyncStorage.multiGet(keys);
-
-			console.log(keys, result, "is logged", logged);
-			
-
-			// @ts-ignore
-			// return result.map(req => JSON.parse(req)).forEach(val => console.log("Async Storage", val));
-		} catch (error) {
-			console.error(error)
-		}
-	}
+	
 
 	useEffect(() => {
 		getData();
-		just4Debug();
 	}, []);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		// if (isSignIn) {
 		AsyncStorage.setItem('isSignIn', JSON.stringify(isSignIn));
 		setLogged(isSignIn);
 		// };
-	}, [isSignIn]);
+
+		console.log("The isSign In changed", isSignIn);
+		
+
+	}, [isSignIn]); */
 
 
-	if (logged) {
+	/* if (!logged) {
 		// return <AuthNavigation />
 		return <PostNavigation />
 	}
-	if (!logged) {
-		// return <AuthNavigation />
-		return <PostNavigation />
-	}
+
+	return <PostNavigation /> */
+
 	// return <AuthNavigation />
+	// return logged? <PostNavigation /> : <AuthNavigation />
+
+	return(
+		//@ts-ignore
+		<Stack.Navigator
+			screenOptions={{
+				headerShown: false,
+			}}>
+			{/* {!logged ? ( */}
+				<Stack.Screen name="Authentication" component={AuthNavigation} />
+			{/* ) : ( */}
+				<Stack.Screen name="Poston" component={PostNavigation} />
+			{/* )} */}
+		</Stack.Navigator>
+	);
 };
 
 export default AppNavigation;

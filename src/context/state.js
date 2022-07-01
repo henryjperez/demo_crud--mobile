@@ -1,5 +1,5 @@
 const state = {
-	name: "goody",
+	name: "",
 	isSignIn: false,
 	darkMode: false,
 	author_id: "",

@@ -16,8 +16,8 @@ export const hostServer = "https://nodito-server.herokuapp.com";
 // export const hostServer = "http://192.168.0.109:9000";
 
 export const sRoutes = {
-	login: "/fake-get",
-	register: "/fake-create",
+	login: "/fake-get-user",
+	register: "/fake-create-user",
 	create_post: "/fake-create-post",
 	get_posts: "/fake-get-posts",
 }

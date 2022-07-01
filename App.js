@@ -11,7 +11,7 @@ export default function App() {
 		<ContextProvider>
 			<SafeAreaProvider>
 				<NavigationContainer>
-					<StatusBar style="light" />
+					{/* <StatusBar style="light" /> */}
 					<AppNavigation />
 				</NavigationContainer>
 			</SafeAreaProvider>

@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import useColors from "../hooks/useColors";
 import Logout from "../components/atoms/buttons/logout";
 import DarkMode from "../components/atoms/buttons/DarkMode";
+import { useFocusEffect } from '@react-navigation/native';
 
 
 export default function HomeScreen() {
@@ -22,9 +23,9 @@ export default function HomeScreen() {
 	const fetcher = useFetchAuth();
 	const colors = useColors();
 
-	/* useEffect(() => {
-		setContent("");
-	}, []) */
+	useEffect(() => {
+		handlePost();
+	}, []);
 
 	function handlePost() {
 		fetcher(sRoutes.get_posts, {});
@@ -32,10 +33,10 @@ export default function HomeScreen() {
 	}
 
 	const renderItem = ({ item }: any) => {
-		return(
+		return (
 			<View style={{ padding: 10, backgroundColor: colors.second, paddingRight: 10, paddingLeft: 10, margin: 5, marginLeft: 20, marginRight: 20, paddingTop: 5, paddingBottom: 20, borderRadius: 10 }}>
 				<Text style={{ color: colors.third, fontWeight: "bold", fontSize: 16 }}>
-					{`by ${item.name || "Anonymous"}` }
+					{`by ${item.name || "Anonymous"}`}
 				</Text>
 				<Text style={{ color: colors.fonts }}>
 					{item.text_content}
@@ -51,21 +52,21 @@ export default function HomeScreen() {
 					Home
 				</Title>
 			</View>
-			<ScrollView>
-				<View style={{ alignItems: "center", }}>
-					<Button onPress={handlePost}>
-						Test
-					</Button>
-				</View>
-				<View style={{}}>
-					<FlatList
-						data={posts}
-						renderItem={renderItem}
-						//@ts-ignore
-						keyExtractor={item => item._id}
-					/>
-				</View>
-			</ScrollView>
+			{/* <ScrollView> */}
+
+			<View style={{ marginBottom: 60 }}>
+				<FlatList
+					data={posts}
+					renderItem={renderItem}
+					//@ts-ignore
+					keyExtractor={item => item._id}
+				/>
+				
+			</View>
+			<Button onPress={handlePost} style={{ width: 50, height: 50, borderRadius: 20, alignSelf: "center" }}>
+				<MaterialCommunityIcons name="reload" color={"white"} size={26} />
+			</Button>
+			{/* </ScrollView> */}
 		</View>
 	);
 };

@@ -6,9 +6,12 @@ import Button from "../buttons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Context from "../../../context";
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function Logout(props:any) {
 	//@ts-ignore
 	const { dispatch } = React.useContext(Context);
+	const navigation = useNavigation();
 
 	function handleLogout() {
 		const promise1 = AsyncStorage.setItem('isSignIn', JSON.stringify(false));
@@ -19,6 +22,8 @@ export default function Logout(props:any) {
 		Promise.all([promise1, promise2, promise3, promise4]).then(() => {
 			dispatch({ type: "logout" })
 		}).catch(console.error);
+		//@ts-ignore
+		navigation.navigate("Authentication")
 	}
 
 	return(

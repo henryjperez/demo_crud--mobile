@@ -12,7 +12,7 @@ const Tab = createMaterialBottomTabNavigator();
 function PostNavigation() {
 	return (
 		// @ts-ignore
-		<Tab.Navigator style={ { backgroundColor: "red" } }>
+		<Tab.Navigator>
 			<Tab.Screen
 				name="Home"
 				component={HomeScreen}

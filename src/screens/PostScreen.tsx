@@ -12,6 +12,7 @@ import { sRoutes } from "../utils/constants";
 //@ts-ignore
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import useColors from "../hooks/useColors";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function PostScreen() {
 	const [content, setContent] = useState("");
@@ -19,13 +20,14 @@ export default function PostScreen() {
 	const fetcher = useFetchAuth();
 	const colors = useColors();
 
-	/* useEffect(() => {
+	/* useFocusEffect(() => {
 		setContent("");
-	}, []) */
+	}) */
 
 
 	function handlePost() {
-		fetcher(sRoutes.create_post, { author_name: name, author_id, text_content: content });
+		console.log("Pressed", content);
+		fetcher(sRoutes.create_post, { name, author_id, text_content: content });
 	}
 
 	return(

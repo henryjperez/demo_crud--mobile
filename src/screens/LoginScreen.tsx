@@ -10,6 +10,7 @@ import context from "../context";
 import useFetchAuth from "../hooks/useFetchAuth";
 import useColors from "../hooks/useColors";
 import { sRoutes } from "../utils/constants";
+import WatchAsyncStore from "../components/atoms/buttons/watchAsyncStore";
 
 const LoginScreen = (props: any) => {
 	const [email, setEmail] = useState("");
@@ -55,6 +56,7 @@ const LoginScreen = (props: any) => {
 					</Buttons>
 				</View>
 				<View style={{ alignItems: "center", marginTop: 20 }}>
+					{/* <WatchAsyncStore /> */}
 					<DarkMode />
 				</View>
 			</SafeAreaView>

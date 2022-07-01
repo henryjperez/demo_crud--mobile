@@ -13,9 +13,15 @@ function reducer(state, action) {
 		case "login":
 			console.log("login", action.payload);
 			AsyncStorage.setItem('id', JSON.stringify(action.payload.author_id)).then(() => console.log("Author ID", action.payload.author_id)).catch(console.error);
+			const promise0 = AsyncStorage.setItem('author_id', JSON.stringify(action.payload.author_id));
+			const promise1 = AsyncStorage.setItem('name', JSON.stringify(action.payload.name));
+			const promise2 = AsyncStorage.setItem('last_name', JSON.stringify(action.payload.last_name));
+
+			Promise.all([promise0, promise1, promise2]).catch(console.error);
 			return { ...state, isSignIn: true, ...action.payload };
 
 		case "logout":
+			console.log("Loguinout");
 			return { ...state, isSignIn: false, author_id: "", name: "", posts: [] };
 
 		case "post-got":

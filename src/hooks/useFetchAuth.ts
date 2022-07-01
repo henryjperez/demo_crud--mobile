@@ -22,7 +22,6 @@ function useFetchAuth() {
 
 	async function fetcher(route: string, content: Content) {
 		try {
-			const { name } = content;
 			const value = await fetch(hostServer + route, {
 				method: "POST",
 				headers: {
@@ -40,12 +39,12 @@ function useFetchAuth() {
 				.catch((error) => {
 					console.error(error);
 				});
-			console.log(route, value, content);
+			console.log("useFetch: route, value, content", route, value, content);
 
 			switch (route) {
 				case sRoutes.register:
 					if (value.created) {
-						dispatch({ type: "login", payload: { name, author_id: value.author_id } });
+						dispatch({ type: "login", payload: { author_id: value.author_id, ...content } });
 						// navigation.navigate()
 					} else {
 						Alert.alert("Hubo un problema al crear el usuario, por favor inténtelo más tarde.");
@@ -54,7 +53,7 @@ function useFetchAuth() {
 				
 				case sRoutes.login:
 					if (value.login) {
-						dispatch({ type: "login", payload: { name, author_id: value.author_id } })
+						dispatch({ type: "login", payload: { author_id: value._id, ...value } })
 					} else {
 						Alert.alert("No se pudo encontrar el usuario.");
 					}
